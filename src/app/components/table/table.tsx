@@ -1,6 +1,7 @@
 import { memo } from "react";
 
 import { IPlanets } from "@/app/types/planets";
+import { formatPopulation } from "@/app/utils/format-numbers";
 
 import { tableHeaders } from "./config";
 import * as Styled from "./table.styles";
@@ -10,8 +11,11 @@ type TableProps = {
 };
 
 export const Table: React.FC<TableProps> = memo(function Table({ data }) {
-  const renderData = (value: string | number | string[]) =>
-    value ? value : "-";
+  const renderData = (value: string | number | string[], key: string) => {
+    return key === "population"
+      ? formatPopulation(value as string)
+      : value || "-";
+  };
 
   return (
     <Styled.TableWrapper>
@@ -34,7 +38,7 @@ export const Table: React.FC<TableProps> = memo(function Table({ data }) {
                     key={header.label}
                     data-label={header.label}
                   >
-                    {renderData(item[header.key as keyof IPlanets])}
+                    {renderData(item[header.key as keyof IPlanets], header.key)}
                   </Styled.TableData>
                 ))}
               </Styled.TableRow>
