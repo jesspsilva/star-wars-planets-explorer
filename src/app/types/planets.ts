@@ -11,7 +11,7 @@ export interface IPlanets {
   diameter: string;
   edited: string;
   films: string[];
-  gravity: number;
+  gravity: string;
   name: string;
   orbital_period: string;
   population: string;

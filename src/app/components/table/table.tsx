@@ -1,9 +1,9 @@
 import { memo } from "react";
 
 import { IPlanets } from "@/app/types/planets";
-import { formatPopulation } from "@/app/utils/format-numbers";
+import { formatNumericValue } from "@/app/utils/format-numeric-values";
 
-import { tableHeaders } from "./config";
+import { tableConfig } from "./config";
 import * as Styled from "./table.styles";
 
 type TableProps = {
@@ -11,19 +11,26 @@ type TableProps = {
 };
 
 export const Table: React.FC<TableProps> = memo(function Table({ data }) {
-  const renderData = (value: string | number | string[], key: string) => {
-    return key === "population"
-      ? formatPopulation(value as string)
-      : value || "-";
+  const renderData = (value: string, key: string) => {
+    const noFormatKeys = ["name", "terrain", "gravity"];
+
+    if (noFormatKeys.includes(key)) {
+      return value;
+    }
+
+    const header = tableConfig.find(config => config.key === key);
+    const unit = header ? header.unit : "";
+
+    return formatNumericValue(value as string, unit);
   };
 
   return (
     <Styled.TableWrapper>
       <Styled.TableHead>
         <tr>
-          {tableHeaders.map((header) => (
-            <Styled.TableHeader key={header.label}>
-              {header.label}
+          {tableConfig.map((config) => (
+            <Styled.TableHeader key={config.label}>
+              {config.label}
             </Styled.TableHeader>
           ))}
         </tr>
@@ -33,12 +40,12 @@ export const Table: React.FC<TableProps> = memo(function Table({ data }) {
           data.map((item) => {
             return (
               <Styled.TableRow key={item.name} data-testid="table-row">
-                {tableHeaders.map((header) => (
+                {tableConfig.map((config) => (
                   <Styled.TableData
-                    key={header.label}
-                    data-label={header.label}
+                    key={config.label}
+                    data-label={config.label}
                   >
-                    {renderData(item[header.key as keyof IPlanets], header.key)}
+                    {renderData(item[config.key as keyof IPlanets] as string, config.key)}
                   </Styled.TableData>
                 ))}
               </Styled.TableRow>
