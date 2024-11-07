@@ -1,4 +1,5 @@
 import * as Styled from "./pagination.styles";
+import { ChevronLeftIcon, ChevronRightIcon } from "@radix-ui/react-icons";
 
 type PaginationProps = {
   totalItems: number;
@@ -27,7 +28,8 @@ export default function Pagination({
         onClick={() => handlePageChange(currentPage - 1)}
         disabled={currentPage === 1}
       >
-        Previous
+        <ChevronLeftIcon />
+        Prev
       </Styled.PaginationButton>
       {Array.from({ length: totalPages }, (_, index) => (
         <Styled.PaginationButton
@@ -43,6 +45,7 @@ export default function Pagination({
         disabled={currentPage === totalPages}
       >
         Next
+        <ChevronRightIcon />
       </Styled.PaginationButton>
     </Styled.PaginationContainer>
   );

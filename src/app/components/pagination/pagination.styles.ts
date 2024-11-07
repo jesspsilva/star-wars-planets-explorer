@@ -1,20 +1,27 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const PaginationContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 20px 0;
 `;
 
 export const PaginationButton = styled.button`
-  margin: 0 5px;
+  display: flex;
+  gap: 4px;
+  align-items: center;
   padding: 10px 15px;
-  border: 1px solid #eeeeee;
-  background-color: #fff;
   cursor: pointer;
-  border-radius: 5px;
   transition: background-color 0.3s;
+  border-radius: 5px;
+
+  &:not(:last-child) {
+    margin: 0 5px;
+  }
+
+  &:hover {
+    background-color: var(--light-blue);
+  }
 
   &:disabled {
     opacity: 0.4;
@@ -22,7 +29,9 @@ export const PaginationButton = styled.button`
   }
 
   &.active {
-    background-color: #fffbec;
+    background-color: var(--alice-blue);
+    border: 1px solid var(--alice-blue);
+    font-weight: bold;
   }
 `;
 

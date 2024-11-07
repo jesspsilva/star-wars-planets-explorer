@@ -7,9 +7,11 @@
   --foreground: #171717;
   --white: #fff;
   --light-gray: #eeeeee;
-  --gray: #b5b7c0;
+  --gray: #7e7a7a;
   --neutral-light: #f9faff;
   --dark-blue: #292d32;
+  --alice-blue: #e9f1f7;
+  --light-blue: #f2f6f9;
 }
 
 body {

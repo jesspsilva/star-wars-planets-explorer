@@ -17,7 +17,7 @@ export default function Home() {
   const [page, setPage] = useState(1);
   const { data, isPending, error } = usePlanets(page);
 
-  const planets: IPlanetsApiResponse['results'] = useMemo(() => {
+  const planets: IPlanetsApiResponse["results"] = useMemo(() => {
     return data?.results || [];
   }, [data]);
 
@@ -29,22 +29,22 @@ export default function Home() {
   if (error) return <ErrorMessage message={error.message} />;
 
   return (
-    <main className="m-20">
+    <Styled.Main>
       <Styled.TableContainer>
         <Table data={planets} />
-        <footer className="mt-10 text-sm flex justify-between items-center lg:flex-row flex-col">
-          <span>
-            Showing {Math.max(1, (page - 1) * 10 + 1)}-
-            {Math.min(page * 10, totalOfResults)} results of {totalOfResults}
-          </span>
-          <Pagination
-            currentPage={page}
-            totalItems={totalOfResults}
-            itemsPerPage={10}
-            onPageChange={setPage}
-          />
-        </footer>
       </Styled.TableContainer>
-    </main>
+      <footer className="mt-8 text-sm flex justify-between items-center lg:flex-row flex-col gap-4">
+        <span>
+          Showing {Math.max(1, (page - 1) * 10 + 1)}-
+          {Math.min(page * 10, totalOfResults)} results of {totalOfResults}
+        </span>
+        <Pagination
+          currentPage={page}
+          totalItems={totalOfResults}
+          itemsPerPage={10}
+          onPageChange={setPage}
+        />
+      </footer>
+    </Styled.Main>
   );
 }

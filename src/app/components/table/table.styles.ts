@@ -21,12 +21,12 @@ export const TableHead = styled.thead`
 `;
 
 export const TableHeader = styled.th`
-  padding: 15px;
+  padding: 12px;
 
   text-align: left;
   color: var(--gray);
-  font-weight: 500;
-  font-size: 1rem;
+  font-weight: 600;
+  font-size: 0.9rem;
   line-height: 1.5;
 `;
 
@@ -53,7 +53,7 @@ export const TableRow = styled.tr`
 
 export const TableData = styled.td`
   font-weight: 400;
-  padding: 15px;
+  padding: 12px;
   text-align: left;
   font-size: 0.9rem;
   color: var(--dark-blue);
