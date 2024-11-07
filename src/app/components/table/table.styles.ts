@@ -65,6 +65,18 @@ export const TableData = styled.td`
     text-transform: capitalize;
   }
 
+  &:nth-child(-n + 4) {
+    width: 10%;
+  }
+
+  &:nth-child(5) {
+    width: 30%;
+  }
+
+  &:nth-child(7) {
+    width: 10%;
+  }
+
   @media (max-width: 1200px) {
     display: flex;
     justify-content: space-between;
@@ -82,6 +94,10 @@ export const TableData = styled.td`
 
     &:last-child {
       border-bottom: 0;
+    }
+
+    &:nth-child(-n + 7) {
+      width: 100%;
     }
   }
 `;
