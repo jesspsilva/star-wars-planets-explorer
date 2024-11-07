@@ -1,4 +1,8 @@
-export function debounce<T extends (...args: unknown[]) => void>(func: T, delay: number): (...args: Parameters<T>) => void {
+/* eslint-disable @typescript-eslint/no-explicit-any */
+export function debounce<T extends (...args: any[]) => void>(
+  func: T,
+  delay: number
+): (...args: Parameters<T>) => void {
   let timeoutId: ReturnType<typeof setTimeout>;
 
   return (...args: Parameters<T>) => {

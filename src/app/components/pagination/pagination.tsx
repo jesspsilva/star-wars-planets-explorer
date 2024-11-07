@@ -1,5 +1,6 @@
-import * as Styled from "./pagination.styles";
 import { ChevronLeftIcon, ChevronRightIcon } from "@radix-ui/react-icons";
+
+import * as Styled from "./pagination.styles";
 
 type PaginationProps = {
   totalItems: number;
