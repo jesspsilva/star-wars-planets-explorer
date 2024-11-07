@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 
 import { Table } from "./components/table/table";
 import usePlanets from "./hooks/use-planets";
@@ -7,16 +7,26 @@ import * as Styled from "./page.styles";
 import { IPlanetsApiResponse } from "./types/planets";
 import Pagination from "./components/pagination/pagination";
 
+const Loading = () => <div>Loading...</div>;
+
+const ErrorMessage = ({ message }: { message: string }) => (
+  <div role="alert">An error has occurred: {message}</div>
+);
+
 export default function Home() {
-  const { data, isPending, error } = usePlanets();
   const [page, setPage] = useState(1);
+  const { data, isPending, error } = usePlanets(page);
 
-  if (isPending) return <div>Loading...</div>;
+  const planets: IPlanetsApiResponse['results'] = useMemo(() => {
+    return data?.results || [];
+  }, [data]);
 
-  if (error) return <div>An error has occurred: {error.message}</div>;
+  const totalOfResults: number = useMemo(() => {
+    return data?.count || 0;
+  }, [data]);
 
-  const { results: planets }: IPlanetsApiResponse = data || { results: [] };
-  const totalOfResults = data.count;
+  if (isPending) return <Loading />;
+  if (error) return <ErrorMessage message={error.message} />;
 
   return (
     <main className="m-20">
@@ -24,8 +34,8 @@ export default function Home() {
         <Table data={planets} />
         <footer className="mt-10 text-sm flex justify-between items-center lg:flex-row flex-col">
           <span>
-            Showing {Math.max(1, page * planets.length - 9)}-
-            {page * planets.length} results of {totalOfResults}
+            Showing {Math.max(1, (page - 1) * 10 + 1)}-
+            {Math.min(page * 10, totalOfResults)} results of {totalOfResults}
           </span>
           <Pagination
             currentPage={page}
