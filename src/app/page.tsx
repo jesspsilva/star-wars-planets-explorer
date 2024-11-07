@@ -1,11 +1,12 @@
 "use client";
-import { useState, useMemo } from "react";
+import { useMemo, useState } from "react";
 
+import Pagination from "./components/pagination/pagination";
+import Search from "./components/search/search";
 import { Table } from "./components/table/table";
 import usePlanets from "./hooks/use-planets";
 import * as Styled from "./page.styles";
 import { IPlanetsApiResponse } from "./types/planets";
-import Pagination from "./components/pagination/pagination";
 
 const Loading = () => <div>Loading...</div>;
 
@@ -15,6 +16,7 @@ const ErrorMessage = ({ message }: { message: string }) => (
 
 export default function Home() {
   const [page, setPage] = useState(1);
+  const [searchValue, setSearchValue] = useState('');
   const { data, isPending, error } = usePlanets(page);
 
   const planets: IPlanetsApiResponse["results"] = useMemo(() => {
@@ -27,9 +29,12 @@ export default function Home() {
 
   if (isPending) return <Loading />;
   if (error) return <ErrorMessage message={error.message} />;
-
+console.log(searchValue)
   return (
     <Styled.Main>
+      <header className="mb-10 flex justify-end">
+        <Search value={searchValue} onChange={setSearchValue} placeholder="Search for a planet"/>
+      </header>
       <Styled.TableContainer>
         <Table data={planets} />
       </Styled.TableContainer>
