@@ -43,7 +43,7 @@ export default function Pagination({
       ))}
       <Styled.PaginationButton
         onClick={() => handlePageChange(currentPage + 1)}
-        disabled={currentPage === totalPages}
+        disabled={currentPage === totalPages || !totalPages}
       >
         Next
         <ChevronRightIcon />

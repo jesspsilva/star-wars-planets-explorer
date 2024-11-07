@@ -54,7 +54,7 @@ export default function Home() {
     setSelectedPlanet(planet);
     setIsDetailsModalVisible(true);
   };
-  
+
   return (
     <Styled.Main>
       <header className="mb-10 flex justify-end">
@@ -65,20 +65,24 @@ export default function Home() {
         />
       </header>
       <Styled.TableContainer>
-        <Table data={planets} onRowClick={handleRowClick} />
+        <Table data={planets} onRowClick={handleRowClick} onClearClick={() => handleInputChange("")}/>
       </Styled.TableContainer>
       <footer className="mt-8 text-sm flex justify-between items-center lg:flex-row flex-col gap-4">
-        <span>
-          Showing {Math.max(1, (page - 1) * ITEMS_PER_PAGE + 1)}-
-          {Math.min(page * ITEMS_PER_PAGE, totalOfResults)} results of{" "}
-          {totalOfResults}
-        </span>
-        <Pagination
-          currentPage={page}
-          totalItems={totalOfResults}
-          itemsPerPage={ITEMS_PER_PAGE}
-          onPageChange={setPage}
-        />
+        {!!totalOfResults && (
+          <>
+            <span>
+              Showing {Math.max(1, (page - 1) * ITEMS_PER_PAGE + 1)}-
+              {Math.min(page * ITEMS_PER_PAGE, totalOfResults)} results of{" "}
+              {totalOfResults}
+            </span>
+            <Pagination
+              currentPage={page}
+              totalItems={totalOfResults}
+              itemsPerPage={ITEMS_PER_PAGE}
+              onPageChange={setPage}
+            />{" "}
+          </>
+        )}
       </footer>
       {isDetailsModalVisible && selectedPlanet && (
         <Modal
