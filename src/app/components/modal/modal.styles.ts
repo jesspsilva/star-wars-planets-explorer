@@ -14,12 +14,20 @@ export const ModalContainer = styled.div`
   background: #ffffff;
   border-radius: 10px;
   max-width: 800px;
-  width: 40%;
-  padding: 2rem;
+  min-width: 70%;
+  width: auto;
+  margin: 1rem;
+  padding: 1rem;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   color: #333333;
   overflow: hidden;
   transition: all 0.3s ease;
+
+  @media (min-width: 1200px) {
+    width: 40%;
+    min-width: auto;
+    padding: 2rem;
+  }
 `;
 
 export const Header = styled.div`
@@ -48,7 +56,11 @@ export const CloseButton = styled.button`
 
 export const ContentGrid = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 1.5rem;
   margin-bottom: 1.5rem;
+
+  @media (min-width: 1200px) {
+    grid-template-columns: 1fr 1fr;
+  }
 `;

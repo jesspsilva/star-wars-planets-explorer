@@ -143,4 +143,10 @@ export const EmptyState = styled.td`
   & span:last-of-type {
     margin-bottom: 40px;
   }
+
+  @media (max-width: 1199px) {
+    border: 1px solid var(--light-gray);
+    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.05);
+    background: var(--white);
+  }
 `;

@@ -8,6 +8,7 @@ export const Search = styled.div`
 
   min-width: 280px;
   padding: 10px 20px;
+  background-color: var(--white);
   border: 1px solid var(--light-gray);
   border-radius: 20px;
   font-size: 0.9rem;

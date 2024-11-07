@@ -3,11 +3,11 @@ import { MouseEvent, memo } from "react";
 import { IPlanets } from "@/app/types/planets";
 import { formatPlanetDetails } from "@/app/utils/format-planet-details";
 import { planetDetailsConfig } from "@/app/utils/planet-details-config";
-import { CrossCircledIcon, FileTextIcon } from "@radix-ui/react-icons";
 
+import TableEmptyState from "./table-empty-state";
 import * as Styled from "./table.styles";
 
-type TableProps = {
+export type TableProps = {
   data: IPlanets[];
   onRowClick: (planet: IPlanets) => void;
   onClearClick: () => void;
@@ -20,11 +20,6 @@ function Table({ data, onRowClick, onClearClick }: TableProps) {
   ) => {
     e.preventDefault();
     onRowClick(planet);
-  };
-
-  const handleClearClick = (e: MouseEvent<HTMLTableRowElement>) => {
-    e.preventDefault();
-    onClearClick();
   };
 
   return (
@@ -63,19 +58,7 @@ function Table({ data, onRowClick, onClearClick }: TableProps) {
           })
         ) : (
           <tr>
-            <Styled.EmptyState colSpan={planetDetailsConfig.length}>
-              <span>
-                <FileTextIcon width={80} height={80} />
-              </span>
-              <p>No data available.</p>
-              <p>Try to adjust your search params or get back soon.</p>
-              <span>
-                <Styled.ClearButton onClick={(e) => handleClearClick(e)}>
-                  Clear search
-                  <CrossCircledIcon />
-                </Styled.ClearButton>
-              </span>
-            </Styled.EmptyState>
+            <TableEmptyState onClearClick={onClearClick} />
           </tr>
         )}
       </tbody>

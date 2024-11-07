@@ -10,7 +10,7 @@ export const Main = styled.main`
   padding: 20px;
   background-color: transparent;
 
-  @media (min-width: 768px) {
+  @media (min-width: 1200px) {
     padding: 20px;
     margin: 60px;
     background-color: var(--white);
