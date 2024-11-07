@@ -1,8 +1,7 @@
-import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
+import { MagnifyingGlassIcon, CrossCircledIcon } from "@radix-ui/react-icons";
 import { ChangeEvent } from "react";
 
 import * as Styled from "./search.styles";
-
 
 type SearchProps = {
   value: string;
@@ -11,20 +10,31 @@ type SearchProps = {
 };
 
 export default function Search({ value, placeholder, onChange }: SearchProps) {
-  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    onChange(event.target.value);
+  const handleInputChange = (value: string) => {
+    onChange(value);
   };
 
   return (
-    <Styled.Search>
+    <Styled.Search className="group">
       <input
         type="text"
         value={value}
-        onChange={handleInputChange}
+        onChange={(e) => handleInputChange(e.target.value)}
         name="search"
         placeholder={placeholder}
       />
-      <MagnifyingGlassIcon width={20} height={20}/>
+      <CrossCircledIcon
+        width={20}
+        height={20}
+        className="hidden group-hover:block cursor-pointer"
+        onClick={() => handleInputChange("")}
+      />
+      <MagnifyingGlassIcon
+        width={20}
+        height={20}
+        className="group-hover:hidden cursor-pointer"
+        onClick={() => handleInputChange("")}
+      />
     </Styled.Search>
   );
 }
