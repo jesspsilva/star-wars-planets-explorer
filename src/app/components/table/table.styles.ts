@@ -8,7 +8,7 @@ export const TableWrapper = styled.table`
 export const TableHead = styled.thead`
   border-bottom: 1px solid var(--light-gray);
 
-  @media (max-width: 768px) {´
+  @media (max-width: 1200px) {´
     border: none;
     clip: rect(0 0 0 0);
     height: 1px;
@@ -21,7 +21,7 @@ export const TableHead = styled.thead`
 `;
 
 export const TableHeader = styled.th`
-  padding: 20px;
+  padding: 15px;
 
   text-align: left;
   color: var(--gray);
@@ -39,7 +39,7 @@ export const TableRow = styled.tr`
     }
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 1200px) {
     display: block;
     border: 1px solid var(--light-gray);
     box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.05);
@@ -53,9 +53,9 @@ export const TableRow = styled.tr`
 
 export const TableData = styled.td`
   font-weight: 400;
-  padding: 20px;
+  padding: 15px;
   text-align: left;
-  font-size: 1rem;
+  font-size: 0.9rem;
   color: var(--dark-blue);
   line-height: 1.5;
 
@@ -65,7 +65,7 @@ export const TableData = styled.td`
     text-transform: capitalize;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 1200px) {
     display: flex;
     justify-content: space-between;
     gap: 10px;
