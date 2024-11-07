@@ -1,9 +1,14 @@
 import { IPlanetsApiResponse } from "../types/planets";
 
 export const getPlanets = async (
-  page: number
+  page: number,
+  searchValue?: string,
 ): Promise<IPlanetsApiResponse> => {
-  const url = `https://swapi.dev/api/planets/?page=${page}`;
+  let url = `https://swapi.dev/api/planets/?page=${page}`;
+
+  if (searchValue) {
+    url += `&search=${searchValue}`
+  }
 
   const response = await fetch(url);
 
