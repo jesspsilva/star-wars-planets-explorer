@@ -4,6 +4,8 @@ import { IPlanets } from "@/app/types/planets";
 import { formatPlanetDetails } from "@/app/utils/format-planet-details";
 import { planetDetailsConfig } from "@/app/utils/planet-details-config";
 
+import SkeletonLoader from "../skeleton-loader/skeleton-loader";
+
 import TableEmptyState from "./table-empty-state";
 import * as Styled from "./table.styles";
 
@@ -11,9 +13,10 @@ export type TableProps = {
   data: IPlanets[];
   onRowClick: (planet: IPlanets) => void;
   onClearClick: () => void;
+  isLoading: boolean;
 };
 
-function Table({ data, onRowClick, onClearClick }: TableProps) {
+function Table({ data, onRowClick, onClearClick, isLoading }: TableProps) {
   const handleRowClick = (
     e: MouseEvent<HTMLTableRowElement>,
     planet: IPlanets
@@ -21,6 +24,8 @@ function Table({ data, onRowClick, onClearClick }: TableProps) {
     e.preventDefault();
     onRowClick(planet);
   };
+
+  if (isLoading) return <SkeletonLoader numberOfItems={10}/>;
 
   return (
     <Styled.TableWrapper>

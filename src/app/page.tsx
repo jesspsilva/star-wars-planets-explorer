@@ -1,18 +1,19 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { debounce } from "@/app/utils/debounce";
 
 import Modal from "./components/modal/modal";
 import Pagination from "./components/pagination/pagination";
 import Search from "./components/search/search";
+import Spinner from "./components/spinner/spinner";
 import Table from "./components/table/table";
 import usePlanets from "./hooks/use-planets";
 import * as Styled from "./page.styles";
 import { IPlanets, IPlanetsApiResponse } from "./types/planets";
 
-const Loading = () => <div>Loading...</div>;
+const Loading = () => <Spinner />;
 
 const ErrorMessage = ({ message }: { message: string }) => (
   <div role="alert">An error has occurred: {message}</div>
@@ -26,8 +27,15 @@ export default function Home() {
   const [debouncedSearchValue, setDebouncedSearchValue] = useState(searchValue);
   const [isDetailsModalVisible, setIsDetailsModalVisible] = useState(false);
   const [selectedPlanet, setSelectedPlanet] = useState<null | IPlanets>(null);
+  const [isFirstLoad, setIsFirstLoad] = useState(true);
 
   const { data, isPending, error } = usePlanets(page, debouncedSearchValue);
+
+  useEffect(() => {
+    if (data) {
+      setIsFirstLoad(false);
+    }
+  }, [data]);
 
   const planets: IPlanetsApiResponse["results"] = useMemo(() => {
     return data?.results || [];
@@ -47,7 +55,7 @@ export default function Home() {
     handleSearchChange(value);
   };
 
-  if (isPending && !searchValue) return <Loading />;
+  if (isPending && isFirstLoad) return <Loading />;
   if (error) return <ErrorMessage message={error.message} />;
 
   const handleRowClick = (planet: IPlanets) => {
@@ -65,7 +73,12 @@ export default function Home() {
         />
       </header>
       <Styled.TableContainer>
-        <Table data={planets} onRowClick={handleRowClick} onClearClick={() => handleInputChange("")}/>
+        <Table
+          data={planets}
+          onRowClick={handleRowClick}
+          onClearClick={() => handleInputChange("")}
+          isLoading={!isFirstLoad && isPending}
+        />
       </Styled.TableContainer>
       <footer className="mt-8 text-sm flex justify-between items-center lg:flex-row flex-col gap-4">
         {!!totalOfResults && (
