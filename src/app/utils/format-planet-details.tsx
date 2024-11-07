@@ -22,7 +22,7 @@ export const formatPlanetDetails = (value: string, key: string) => {
               <Badge
                 label={val}
                 key={val}
-                color={
+                colors={
                   key === "terrain"
                     ? getTerrainColor(val as EPlanetTerrains)
                     : getClimateColor(val as EPlanetClimates)

@@ -1,15 +1,20 @@
 import * as Styled from "./badge.styles";
 
+import type { IPlanateDetailsColors } from "@/app/types/colors";
+
 export interface BadgeProps {
   label: string;
-  color?: string;
+  colors: IPlanateDetailsColors;
 }
 
-const defaultColor = "#b5b7c0";
+const defaultColor = {
+  border: "#b5b7c0",
+  background: "#b5b7c0",
+};
 
-export default function Badge({ label, color = defaultColor }: BadgeProps) {
+export default function Badge({ label, colors = defaultColor }: BadgeProps) {
   return (
-    <Styled.BadgeWrapper label={label} color={color}>
+    <Styled.BadgeWrapper label={label} colors={colors}>
       {label}
     </Styled.BadgeWrapper>
   );
