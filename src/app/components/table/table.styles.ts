@@ -31,12 +31,10 @@ export const TableHeader = styled.th`
 `;
 
 export const TableRow = styled.tr`
-  &.filterable {
-    cursor: pointer;
+  cursor: pointer;
 
-    &:hover {
-      background: var(--neutral-light);
-    }
+  &:hover {
+    background-color: var(--light-blue);
   }
 
   @media (max-width: 1200px) {
@@ -65,16 +63,16 @@ export const TableData = styled.td`
     text-transform: capitalize;
   }
 
-  &:nth-child(-n + 4) {
-    width: 10%;
+  &:nth-child(-n + 5) {
+    width: 12%;
   }
 
-  &:nth-child(5) {
-    width: 30%;
+  &:nth-child(6) {
+    width: 20%;
   }
 
   &:nth-child(7) {
-    width: 10%;
+    width: 20%;
   }
 
   @media (max-width: 1200px) {
