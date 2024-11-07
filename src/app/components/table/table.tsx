@@ -1,10 +1,14 @@
 import { memo } from "react";
 
+import Badge from "@/app/components/badge/badge";
 import { IPlanets } from "@/app/types/planets";
+import { EPlanetTerrains } from "@/app/types/terrains";
 import { formatNumericValue } from "@/app/utils/format-numeric-values";
+import getTerrainColor from "@/app/utils/terrains-colors";
 
 import { tableConfig } from "./config";
 import * as Styled from "./table.styles";
+
 
 type TableProps = {
   data: IPlanets[];
@@ -12,13 +16,25 @@ type TableProps = {
 
 export const Table: React.FC<TableProps> = memo(function Table({ data }) {
   const renderData = (value: string, key: string) => {
-    const noFormatKeys = ["name", "terrain", "gravity"];
+    const noFormatKeys = ["name", "gravity"];
 
     if (noFormatKeys.includes(key)) {
       return value;
     }
+    if (key === "terrain") {
+      const valuesArray = value.split(",").map(val => val.trim()) as EPlanetTerrains[];
 
-    const header = tableConfig.find(config => config.key === key);
+
+      return (
+        <div className="flex gap-2 flex-wrap lg:justify-start justify-end">
+          {valuesArray.map((value) => (
+            <Badge label={value} key={value} color={getTerrainColor(value)}/>
+          ))}
+        </div>
+      );
+    }
+
+    const header = tableConfig.find((config) => config.key === key);
     const unit = header ? header.unit : "";
 
     return formatNumericValue(value as string, unit);
@@ -45,7 +61,10 @@ export const Table: React.FC<TableProps> = memo(function Table({ data }) {
                     key={config.label}
                     data-label={config.label}
                   >
-                    {renderData(item[config.key as keyof IPlanets] as string, config.key)}
+                    {renderData(
+                      item[config.key as keyof IPlanets] as string,
+                      config.key
+                    )}
                   </Styled.TableData>
                 ))}
               </Styled.TableRow>

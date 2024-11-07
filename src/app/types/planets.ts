@@ -1,3 +1,5 @@
+import { EPlanetTerrains } from "./terrains";
+
 export interface IPlanetsApiResponse {
   count: number;
   next: string | null;
@@ -18,6 +20,6 @@ export interface IPlanets {
   residents: string[];
   rotation_period: string;
   surface_water: string;
-  terrain: string;
+  terrain: EPlanetTerrains[];
   url: string;
 }
