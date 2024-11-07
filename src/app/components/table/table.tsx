@@ -1,14 +1,15 @@
 import { memo } from "react";
 
 import Badge from "@/app/components/badge/badge";
+import { EPlanetClimates } from "@/app/types/climates";
 import { IPlanets } from "@/app/types/planets";
 import { EPlanetTerrains } from "@/app/types/terrains";
+import getClimateColor from "@/app/utils/climates-colors";
 import { formatNumericValue } from "@/app/utils/format-numeric-values";
 import getTerrainColor from "@/app/utils/terrains-colors";
 
 import { tableConfig } from "./config";
 import * as Styled from "./table.styles";
-
 
 type TableProps = {
   data: IPlanets[];
@@ -16,20 +17,28 @@ type TableProps = {
 
 export const Table: React.FC<TableProps> = memo(function Table({ data }) {
   const renderData = (value: string, key: string) => {
-    const noFormatKeys = ["name", "gravity"];
-
-    if (noFormatKeys.includes(key)) {
+    if (key === "name") {
       return value;
     }
-    if (key === "terrain") {
-      const valuesArray = value.split(",").map(val => val.trim()) as EPlanetTerrains[];
 
+    if (key === "terrain" || key === "climate") {
+      const valuesArray = value.split(",").map((val) => val.trim());
 
       return (
         <div className="flex gap-2 flex-wrap lg:justify-start justify-end">
-          {valuesArray.map((value) => (
-            <Badge label={value} key={value} color={getTerrainColor(value)}/>
-          ))}
+          {valuesArray.map((val: string) => {
+            return (
+              <Badge
+                label={val}
+                key={val}
+                color={
+                  key === "terrain"
+                    ? getTerrainColor(val as EPlanetTerrains)
+                    : getClimateColor(val as EPlanetClimates)
+                }
+              />
+            );
+          })}
         </div>
       );
     }

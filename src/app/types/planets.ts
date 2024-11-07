@@ -1,3 +1,4 @@
+import { EPlanetClimates } from "./climates";
 import { EPlanetTerrains } from "./terrains";
 
 export interface IPlanetsApiResponse {
@@ -8,7 +9,7 @@ export interface IPlanetsApiResponse {
 }
 
 export interface IPlanets {
-  climate: string;
+  climate: EPlanetClimates[];
   created: string;
   diameter: string;
   edited: string;

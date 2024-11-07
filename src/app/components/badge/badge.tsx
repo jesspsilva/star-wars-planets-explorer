@@ -1,9 +1,7 @@
-import { EPlanetTerrains } from "@/app/types/terrains";
-
 import * as Styled from "./badge.styles";
 
 export interface BadgeProps {
-  label: EPlanetTerrains;
+  label: string;
   color?: string;
 }
 
