@@ -4,6 +4,8 @@ import { EPlanetTerrains } from "@/app/types/terrains";
 import getClimateColor from "@/app/utils/climates-colors";
 import getTerrainColor from "@/app/utils/terrains-colors";
 
+import IconWithTooltip from "../components/icon-with-tooltip/icon-with-tooltip";
+
 import { formatNumericValue } from "./format-numeric-values";
 import { planetDetailsConfig } from "./planet-details-config";
 
@@ -34,7 +36,7 @@ export const formatPlanetDetails = (value: string, key: string) => {
     );
   }
 
-  if (value === "unknown") return "Unknown";
+  if (value === "unknown") return <IconWithTooltip tooltipText="Unknown" />;
 
   const header = planetDetailsConfig.find((config) => config.key === key);
   const unit = header ? header.unit : "";
