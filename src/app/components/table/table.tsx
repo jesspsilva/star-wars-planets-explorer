@@ -14,9 +14,16 @@ export type TableProps = {
   onRowClick: (planet: IPlanets) => void;
   onClearClick: () => void;
   isLoading: boolean;
+  columns: string[];
 };
 
-function Table({ data, onRowClick, onClearClick, isLoading }: TableProps) {
+function Table({
+  data,
+  onRowClick,
+  onClearClick,
+  isLoading,
+  columns,
+}: TableProps) {
   const handleRowClick = (
     e: MouseEvent<HTMLTableRowElement>,
     planet: IPlanets
@@ -25,17 +32,20 @@ function Table({ data, onRowClick, onClearClick, isLoading }: TableProps) {
     onRowClick(planet);
   };
 
-  if (isLoading) return <SkeletonLoader numberOfItems={10}/>;
+  if (isLoading) return <SkeletonLoader numberOfItems={10} />;
 
   return (
     <Styled.TableWrapper>
       <Styled.TableHead>
         <tr>
-          {planetDetailsConfig.map((config) => (
-            <Styled.TableHeader key={config.label}>
-              {config.label}
-            </Styled.TableHeader>
-          ))}
+          {planetDetailsConfig.map(
+            (config) =>
+              columns.includes(config.key) && (
+                <Styled.TableHeader key={config.label}>
+                  {config.label}
+                </Styled.TableHeader>
+              )
+          )}
         </tr>
       </Styled.TableHead>
       <tbody>
@@ -47,17 +57,20 @@ function Table({ data, onRowClick, onClearClick, isLoading }: TableProps) {
                 data-testid="table-row"
                 onClick={(e) => handleRowClick(e, item)}
               >
-                {planetDetailsConfig.map((config) => (
-                  <Styled.TableData
-                    key={config.label}
-                    data-label={config.label}
-                  >
-                    {formatPlanetDetails(
-                      item[config.key as keyof IPlanets] as string,
-                      config.key
-                    )}
-                  </Styled.TableData>
-                ))}
+                {planetDetailsConfig.map(
+                  (config) =>
+                    columns.includes(config.key) && (
+                      <Styled.TableData
+                        key={config.label}
+                        data-label={config.label}
+                      >
+                        {formatPlanetDetails(
+                          item[config.key as keyof IPlanets] as string,
+                          config.key
+                        )}
+                      </Styled.TableData>
+                    )
+                )}
               </Styled.TableRow>
             );
           })

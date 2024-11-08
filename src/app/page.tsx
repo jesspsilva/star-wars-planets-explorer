@@ -1,9 +1,12 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 import { debounce } from "@/app/utils/debounce";
 
+import ColumnToggle, {
+  type ColumnToggleConfig,
+} from "./components/column-toggle/column-toggle";
 import Modal from "./components/modal/modal";
 import Pagination from "./components/pagination/pagination";
 import Search from "./components/search/search";
@@ -12,6 +15,7 @@ import Table from "./components/table/table";
 import usePlanets from "./hooks/use-planets";
 import * as Styled from "./page.styles";
 import { IPlanets, IPlanetsApiResponse } from "./types/planets";
+import { planetDetailsConfig } from "./utils/planet-details-config";
 
 const Loading = () => <Spinner />;
 
@@ -28,6 +32,25 @@ export default function Home() {
   const [isDetailsModalVisible, setIsDetailsModalVisible] = useState(false);
   const [selectedPlanet, setSelectedPlanet] = useState<null | IPlanets>(null);
   const [isFirstLoad, setIsFirstLoad] = useState(true);
+  const [tableColumns, setTableColumns] = useState<ColumnToggleConfig[]>(() =>
+    planetDetailsConfig.map((config) => ({
+      name: config.label,
+      isVisible: true,
+      key: config.key,
+    }))
+  );
+
+  const visibleTableColumnsKeys = useMemo(() => {
+    return tableColumns.filter((col) => col.isVisible).map(({ key }) => key);
+  }, [tableColumns]);
+
+  const handleColumnToggle = useCallback((columnKey: string) => {
+    setTableColumns((prev) =>
+      prev.map((col) =>
+        col.key === columnKey ? { ...col, isVisible: !col.isVisible } : col
+      )
+    );
+  }, []);
 
   const { data, isPending, error } = usePlanets(page, debouncedSearchValue);
 
@@ -65,11 +88,15 @@ export default function Home() {
 
   return (
     <Styled.Main>
-      <header className="mb-10 flex justify-end">
+      <header className="mb-10 flex justify-end gap-4">
         <Search
           value={searchValue}
           onChange={handleInputChange}
           placeholder="Search for a planet"
+        />
+        <ColumnToggle
+          columns={tableColumns}
+          onColumnToggle={handleColumnToggle}
         />
       </header>
       <Styled.TableContainer>
@@ -78,6 +105,7 @@ export default function Home() {
           onRowClick={handleRowClick}
           onClearClick={() => handleInputChange("")}
           isLoading={!isFirstLoad && isPending}
+          columns={visibleTableColumnsKeys}
         />
       </Styled.TableContainer>
       <footer className="mt-8 text-sm flex justify-between items-center lg:flex-row flex-col gap-4">
