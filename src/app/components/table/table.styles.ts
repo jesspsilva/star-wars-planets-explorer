@@ -1,5 +1,26 @@
 import styled from "styled-components";
 
+export const TableContainer = styled.div`
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: var(--light-gray);
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--gray);
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+  }
+`;
+
 export const TableWrapper = styled.table`
   width: 100%;
   border-collapse: collapse;
