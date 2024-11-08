@@ -1,4 +1,10 @@
-import { fireEvent, render, screen, waitFor, within } from "@testing-library/react";
+import {
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+  within,
+} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import { mockedUsePlanets } from "../__mocks__/hooks";
@@ -50,16 +56,20 @@ describe("Home Component", () => {
     it("should render planets table with correct data", () => {
       render(<Home />);
 
-      const table = screen.getByTestId('data-table');
-      const rows = within(table).getAllByRole('row');
+      const table = screen.getByTestId("data-table");
+      const rows = within(table).getAllByRole("row");
 
       expect(rows.length).toBeGreaterThanOrEqual(2);
-    
-      const firstRowCells = within(rows[0]).getAllByTestId('desktop-table-cell');
-      expect(firstRowCells[0]).toHaveTextContent('Tatooine');
-    
-      const secondRowCells = within(rows[1]).getAllByTestId('desktop-table-cell');
-      expect(secondRowCells[0]).toHaveTextContent('Alderaan');
+
+      const firstRowCells = within(rows[0]).getAllByTestId(
+        "desktop-table-cell"
+      );
+      expect(firstRowCells[0]).toHaveTextContent("Tatooine");
+
+      const secondRowCells = within(rows[1]).getAllByTestId(
+        "desktop-table-cell"
+      );
+      expect(secondRowCells[0]).toHaveTextContent("Alderaan");
     });
 
     it("should show correct pagination info", () => {
@@ -126,8 +136,8 @@ describe("Home Component", () => {
     it("should open modal with planet details when row is clicked", async () => {
       render(<Home />);
 
-      const table = screen.getByTestId('data-table');
-      const rows = within(table).getAllByRole('row');
+      const table = screen.getByTestId("data-table");
+      const rows = within(table).getAllByRole("row");
 
       // Click on a planet row
       fireEvent.click(rows[0]!);
@@ -143,8 +153,8 @@ describe("Home Component", () => {
       render(<Home />);
 
       // Open modal
-      const table = screen.getByTestId('data-table');
-      const rows = within(table).getAllByRole('row');
+      const table = screen.getByTestId("data-table");
+      const rows = within(table).getAllByRole("row");
 
       // Click on a planet row
       fireEvent.click(rows[0]!);
@@ -220,7 +230,7 @@ describe("Home Component", () => {
       await userEvent.click(nextPageButton);
 
       // Verify loading indicator is shown
-      expect(screen.getByTestId("skeleton-loader")).toBeInTheDocument();
+      expect(screen.getByTestId("skeleton-loader-desktop")).toBeVisible();
     });
   });
 });

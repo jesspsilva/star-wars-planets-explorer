@@ -20,6 +20,7 @@ export const renderTableMobile = (props = {}) => {
     columns: mockedColumns,
     onRowClick: mockOnRowClick,
     onClearClick: mockOnClearClick,
+    isLoading: false,
   };
 
   return render(<TableMobile {...defaultProps} {...props} />);
@@ -31,28 +32,14 @@ describe("TableMobile", () => {
   });
 
   it("renders all data rows correctly", () => {
-    render(
-      <TableMobile
-        data={planetsData}
-        columns={mockedColumns}
-        onRowClick={mockOnRowClick}
-        onClearClick={mockOnClearClick}
-      />
-    );
+    renderTableMobile();
 
     const rows = screen.getAllByTestId("mobile-table-row");
     expect(rows).toHaveLength(planetsData.length);
   });
 
   it("renders all cells with correct data", () => {
-    render(
-      <TableMobile
-        data={planetsData}
-        columns={mockedColumns}
-        onRowClick={mockOnRowClick}
-        onClearClick={mockOnClearClick}
-      />
-    );
+    renderTableMobile();
 
     planetsData.forEach((item) => {
       expect(screen.getByText(item.name)).toBeInTheDocument();
@@ -64,14 +51,7 @@ describe("TableMobile", () => {
   });
 
   it("applies correct data-label attributes to cells", () => {
-    render(
-      <TableMobile
-        data={planetsData}
-        columns={mockedColumns}
-        onRowClick={mockOnRowClick}
-        onClearClick={mockOnClearClick}
-      />
-    );
+    renderTableMobile();
 
     const cells = screen.getAllByTestId("mobile-table-cell");
     cells.forEach((cell, index) => {
@@ -84,14 +64,7 @@ describe("TableMobile", () => {
   });
 
   it("calls onRowClick with correct planet data when row is clicked", () => {
-    render(
-      <TableMobile
-        data={planetsData}
-        columns={mockedColumns}
-        onRowClick={mockOnRowClick}
-        onClearClick={mockOnClearClick}
-      />
-    );
+    renderTableMobile();
 
     const firstRow = screen.getAllByTestId("mobile-table-row")[0];
     fireEvent.click(firstRow);
@@ -101,14 +74,7 @@ describe("TableMobile", () => {
   });
 
   it("applies hover and cursor styles to rows", () => {
-    render(
-      <TableMobile
-        data={planetsData}
-        columns={mockedColumns}
-        onRowClick={mockOnRowClick}
-        onClearClick={mockOnClearClick}
-      />
-    );
+    renderTableMobile();
 
     const rows = screen.getAllByTestId("mobile-table-row");
     rows.forEach((row) => {
@@ -119,14 +85,9 @@ describe("TableMobile", () => {
 
   describe("when there's not data", () => {
     beforeEach(() => {
-      render(
-        <TableMobile
-          data={[]}
-          columns={mockedColumns}
-          onRowClick={mockOnRowClick}
-          onClearClick={mockOnClearClick}
-        />
-      );
+      renderTableMobile({
+        data: [],
+      });
     });
 
     it("should show empty state", () => {
@@ -147,6 +108,19 @@ describe("TableMobile", () => {
 
         expect(mockOnClearClick).toHaveBeenCalledTimes(1);
       });
+    });
+  });
+
+  describe("when data is loading", () => {
+    beforeEach(() => {
+      renderTableMobile({
+        isLoading: true,
+      });
+    });
+
+    it("should show loading skeleton", () => {
+      const skeletonDiv = screen.getByTestId("skeleton-loader");
+      expect(skeletonDiv.children).toHaveLength(8);
     });
   });
 });

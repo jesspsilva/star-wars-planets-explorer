@@ -2,8 +2,6 @@ import { memo } from "react";
 
 import { IPlanets } from "@/app/types/planets";
 
-import SkeletonLoader from "../skeleton-loader/skeleton-loader";
-
 import TableDesktop from "./table-desktop";
 import TableMobile from "./table-mobile";
 
@@ -24,16 +22,26 @@ function Table({
   isLoading,
   columns,
 }: TableProps) {
-  if (isLoading) return <SkeletonLoader numberOfItems={10} />;
-
   return (
     <>
       <div className="hidden lg:block">
-        <TableDesktop data={data} onRowClick={onRowClick} columns={columns} onClearClick={onClearClick}/>
+        <TableDesktop
+          data={data}
+          onRowClick={onRowClick}
+          columns={columns}
+          onClearClick={onClearClick}
+          isLoading={isLoading}
+        />
       </div>
 
       <div className="block lg:hidden">
-        <TableMobile data={data} onRowClick={onRowClick} columns={columns} onClearClick={onClearClick}/>
+        <TableMobile
+          data={data}
+          onRowClick={onRowClick}
+          columns={columns}
+          onClearClick={onClearClick}
+          isLoading={isLoading}
+        />
       </div>
     </>
   );

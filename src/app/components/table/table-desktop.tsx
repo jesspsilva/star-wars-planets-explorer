@@ -11,6 +11,8 @@ import {
 import { IPlanets } from "@/app/types/planets";
 import { formatPlanetDetails } from "@/app/utils/format-planet-details";
 
+import SkeletonLoader from "../skeleton-loader/skeleton-loader";
+
 import TableEmptyState from "./table-empty-state";
 import { TableContainer } from "./table.styles";
 
@@ -20,8 +22,9 @@ export function TableDesktop({
   data,
   columns,
   onRowClick,
-  onClearClick
-}: Pick<TableProps, "data" | "onRowClick" | "columns" | "onClearClick">) {
+  onClearClick,
+  isLoading,
+}: TableProps) {
   return (
     <div className="relative w-full h-[26rem] 2xl:h-auto min-h-96">
       <div className="absolute inset-0 flex flex-col 2xl:relative 2xl:h-auto">
@@ -44,39 +47,43 @@ export function TableDesktop({
             </TableHeader>
           </Table>
         </div>
-        <TableContainer className="flex-1 overflow-auto 2xl:max-h-none">
-          <Table className="w-full table-fixed" data-testid="data-table">
-            <TableBody>
-              {data.length > 0 ? (
-                data.map((item) => (
-                  <TableRow
-                    key={item.name}
-                    data-testid="desktop-table-row"
-                    onClick={() => onRowClick(item)}
-                    className="hover:bg-blue-50 cursor-pointer"
-                  >
-                    {columns.map((col, index) => (
-                      <TableCell
-                        key={col.key}
-                        className={`${index < 5 ? "w-[12%]" : "w-1/5"}`}
-                        data-testid="desktop-table-cell"
-                      >
-                        {formatPlanetDetails(
-                          item[col.key as keyof IPlanets] as string,
-                          col.key
-                        )}
-                      </TableCell>
-                    ))}
-                  </TableRow>
-                ))
-              ) : (
-                <tr>
-                  <TableEmptyState onClearClick={onClearClick} />
-                </tr>
-              )}
-            </TableBody>
-          </Table>
-        </TableContainer>
+        {isLoading ? (
+          <SkeletonLoader numberOfItems={7} dataTestid="desktop"/>
+        ) : (
+          <TableContainer className="flex-1 overflow-auto 2xl:max-h-none">
+            <Table className="w-full table-fixed" data-testid="data-table">
+              <TableBody>
+                {data.length > 0 &&
+                  data.map((item) => (
+                    <TableRow
+                      key={item.name}
+                      data-testid="desktop-table-row"
+                      onClick={() => onRowClick(item)}
+                      className="hover:bg-blue-50 cursor-pointer"
+                    >
+                      {columns.map((col, index) => (
+                        <TableCell
+                          key={col.key}
+                          className={`${index < 5 ? "w-[12%]" : "w-1/5"}`}
+                          data-testid="desktop-table-cell"
+                        >
+                          {formatPlanetDetails(
+                            item[col.key as keyof IPlanets] as string,
+                            col.key
+                          )}
+                        </TableCell>
+                      ))}
+                    </TableRow>
+                  ))}
+                {!data.length && (
+                  <tr>
+                    <TableEmptyState onClearClick={onClearClick} />
+                  </tr>
+                )}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        )}
       </div>
     </div>
   );

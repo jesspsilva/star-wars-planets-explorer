@@ -32,6 +32,7 @@ export default function Home() {
   const [isDetailsModalVisible, setIsDetailsModalVisible] = useState(false);
   const [selectedPlanet, setSelectedPlanet] = useState<null | IPlanets>(null);
   const [isFirstLoad, setIsFirstLoad] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [tableColumns, setTableColumns] = useState<ColumnToggleConfig[]>(() =>
     planetDetailsConfig.map((config) => ({
       name: config.label,
@@ -62,6 +63,7 @@ export default function Home() {
   useEffect(() => {
     if (data) {
       setIsFirstLoad(false);
+      setIsLoading(false);
     }
   }, [data]);
 
@@ -75,11 +77,12 @@ export default function Home() {
 
   const handleSearchChange = debounce((value: string) => {
     setDebouncedSearchValue(value);
-  }, 300);
+  }, 600);
 
   const handleInputChange = (value: string) => {
     setSearchValue(value);
     setPage(1);
+    setIsLoading(true);
     handleSearchChange(value);
   };
 
@@ -109,7 +112,7 @@ export default function Home() {
           data={planets}
           onRowClick={handleRowClick}
           onClearClick={() => handleInputChange("")}
-          isLoading={!isFirstLoad && isPending}
+          isLoading={isLoading || isPending}
           columns={visibleTableColumnsData}
         />
       </Styled.TableContainer>

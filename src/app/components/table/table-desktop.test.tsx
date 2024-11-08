@@ -20,6 +20,7 @@ export const renderTableDesktop = (props = {}) => {
     columns: mockedColumns,
     onRowClick: mockOnRowClick,
     onClearClick: mockOnClearClick,
+    isLoading: false,
   };
 
   return render(<TableDesktop {...defaultProps} {...props} />);
@@ -111,6 +112,19 @@ describe("TableDesktop", () => {
 
         expect(mockOnClearClick).toHaveBeenCalledTimes(1);
       });
+    });
+  });
+
+  describe("when data is loading", () => {
+    beforeEach(() => {
+      renderTableDesktop({
+        isLoading: true,
+      });
+    });
+
+    it("should show loading skeleton", () => {
+      const skeletonDiv = screen.getByTestId("skeleton-loader");
+      expect(skeletonDiv.children).toHaveLength(7);
     });
   });
 });
