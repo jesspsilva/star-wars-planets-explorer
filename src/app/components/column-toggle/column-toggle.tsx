@@ -45,7 +45,7 @@ export default function ColumnToggle({
       }
       onColumnToggle(column.key);
     },
-    [visibleColumnsCount, minVisibleColumns, onColumnToggle, isColumnDisabled]
+    [onColumnToggle, isColumnDisabled]
   );
 
   return (
