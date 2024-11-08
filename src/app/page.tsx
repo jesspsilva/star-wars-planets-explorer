@@ -94,6 +94,11 @@ export default function Home() {
     setIsDetailsModalVisible(true);
   };
 
+  const handlePageChange = (page: number) => {
+    setPage(page);
+    window.scrollTo(0, 0);
+  };
+
   return (
     <Styled.Main>
       <header className="mb-10 flex justify-end gap-4">
@@ -116,7 +121,7 @@ export default function Home() {
           columns={visibleTableColumnsData}
         />
       </Styled.TableContainer>
-      <footer className="mt-8 text-sm flex justify-between items-center lg:flex-row flex-col gap-4">
+      <Styled.Footer className="mt-8 text-sm flex justify-between items-center lg:flex-row flex-col gap-4">
         {!!totalOfResults && (
           <>
             <span>
@@ -128,11 +133,11 @@ export default function Home() {
               currentPage={page}
               totalItems={totalOfResults}
               itemsPerPage={ITEMS_PER_PAGE}
-              onPageChange={setPage}
+              onPageChange={handlePageChange}
             />
           </>
         )}
-      </footer>
+      </Styled.Footer>
       {isDetailsModalVisible && selectedPlanet && (
         <Modal
           planet={selectedPlanet}
