@@ -1,4 +1,5 @@
 import { fireEvent, render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 
 import { mockedPlanetsApiResponse } from "@mocks/planets-data";
 import { mockedColumns } from "@mocks/table";
@@ -10,10 +11,21 @@ jest.mock("@/app/utils/format-planet-details", () => ({
 }));
 
 const planetsData = mockedPlanetsApiResponse.results;
+const mockOnRowClick = jest.fn();
+const mockOnClearClick = jest.fn();
+
+export const renderTableMobile = (props = {}) => {
+  const defaultProps = {
+    data: planetsData,
+    columns: mockedColumns,
+    onRowClick: mockOnRowClick,
+    onClearClick: mockOnClearClick,
+  };
+
+  return render(<TableMobile {...defaultProps} {...props} />);
+};
 
 describe("TableMobile", () => {
-  const mockOnRowClick = jest.fn();
-
   beforeEach(() => {
     jest.clearAllMocks();
   });
@@ -24,6 +36,7 @@ describe("TableMobile", () => {
         data={planetsData}
         columns={mockedColumns}
         onRowClick={mockOnRowClick}
+        onClearClick={mockOnClearClick}
       />
     );
 
@@ -37,6 +50,7 @@ describe("TableMobile", () => {
         data={planetsData}
         columns={mockedColumns}
         onRowClick={mockOnRowClick}
+        onClearClick={mockOnClearClick}
       />
     );
 
@@ -55,6 +69,7 @@ describe("TableMobile", () => {
         data={planetsData}
         columns={mockedColumns}
         onRowClick={mockOnRowClick}
+        onClearClick={mockOnClearClick}
       />
     );
 
@@ -74,6 +89,7 @@ describe("TableMobile", () => {
         data={planetsData}
         columns={mockedColumns}
         onRowClick={mockOnRowClick}
+        onClearClick={mockOnClearClick}
       />
     );
 
@@ -90,6 +106,7 @@ describe("TableMobile", () => {
         data={planetsData}
         columns={mockedColumns}
         onRowClick={mockOnRowClick}
+        onClearClick={mockOnClearClick}
       />
     );
 
@@ -97,6 +114,39 @@ describe("TableMobile", () => {
     rows.forEach((row) => {
       expect(row).toHaveClass("hover:bg-blue-50");
       expect(row).toHaveClass("cursor-pointer");
+    });
+  });
+
+  describe("when there's not data", () => {
+    beforeEach(() => {
+      render(
+        <TableMobile
+          data={[]}
+          columns={mockedColumns}
+          onRowClick={mockOnRowClick}
+          onClearClick={mockOnClearClick}
+        />
+      );
+    });
+
+    it("should show empty state", () => {
+      expect(screen.getByText("No data available.")).toBeInTheDocument();
+    });
+
+    it("should display a clear search button", () => {
+      const clearButton = screen.getByRole("button", { name: /clear search/i });
+      expect(clearButton).toBeInTheDocument();
+    });
+
+    describe("and we click in the clear button", () => {
+      it("should trigger the onClearClick function", async () => {
+        const clearButton = screen.getByRole("button", {
+          name: /clear search/i,
+        });
+        await userEvent.click(clearButton);
+
+        expect(mockOnClearClick).toHaveBeenCalledTimes(1);
+      });
     });
   });
 });

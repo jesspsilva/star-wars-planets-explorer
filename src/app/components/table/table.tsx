@@ -1,20 +1,20 @@
-import { MouseEvent, memo } from "react";
+import { memo } from "react";
 
 import { IPlanets } from "@/app/types/planets";
-import { formatPlanetDetails } from "@/app/utils/format-planet-details";
-import { planetDetailsConfig } from "@/app/utils/planet-details-config";
 
 import SkeletonLoader from "../skeleton-loader/skeleton-loader";
 
-import TableEmptyState from "./table-empty-state";
-import * as Styled from "./table.styles";
+import TableDesktop from "./table-desktop";
+import TableMobile from "./table-mobile";
+
+import type { ColumnToggleConfig } from "@/app/components/column-toggle/column-toggle";
 
 export type TableProps = {
   data: IPlanets[];
   onRowClick: (planet: IPlanets) => void;
   onClearClick: () => void;
   isLoading: boolean;
-  columns: string[];
+  columns: Pick<ColumnToggleConfig, "name" | "key">[];
 };
 
 function Table({
@@ -24,63 +24,18 @@ function Table({
   isLoading,
   columns,
 }: TableProps) {
-  const handleRowClick = (
-    e: MouseEvent<HTMLTableRowElement>,
-    planet: IPlanets
-  ) => {
-    e.preventDefault();
-    onRowClick(planet);
-  };
-
   if (isLoading) return <SkeletonLoader numberOfItems={10} />;
 
   return (
-    <Styled.TableWrapper>
-      <Styled.TableHead>
-        <tr>
-          {planetDetailsConfig.map(
-            (config) =>
-              columns.includes(config.key) && (
-                <Styled.TableHeader key={config.label}>
-                  {config.label}
-                </Styled.TableHeader>
-              )
-          )}
-        </tr>
-      </Styled.TableHead>
-      <tbody>
-        {data.length > 0 ? (
-          data.map((item) => {
-            return (
-              <Styled.TableRow
-                key={item.name}
-                data-testid="table-row"
-                onClick={(e) => handleRowClick(e, item)}
-              >
-                {planetDetailsConfig.map(
-                  (config) =>
-                    columns.includes(config.key) && (
-                      <Styled.TableData
-                        key={config.label}
-                        data-label={config.label}
-                      >
-                        {formatPlanetDetails(
-                          item[config.key as keyof IPlanets] as string,
-                          config.key
-                        )}
-                      </Styled.TableData>
-                    )
-                )}
-              </Styled.TableRow>
-            );
-          })
-        ) : (
-          <tr>
-            <TableEmptyState onClearClick={onClearClick} />
-          </tr>
-        )}
-      </tbody>
-    </Styled.TableWrapper>
+    <>
+      <div className="hidden lg:block">
+        <TableDesktop data={data} onRowClick={onRowClick} columns={columns} onClearClick={onClearClick}/>
+      </div>
+
+      <div className="block lg:hidden">
+        <TableMobile data={data} onRowClick={onRowClick} columns={columns} onClearClick={onClearClick}/>
+      </div>
+    </>
   );
 }
 

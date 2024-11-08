@@ -45,7 +45,7 @@ export const TableRow = styled.tr`
 `;
 
 export const TableData = styled.td`
- display: flex;
+  display: flex;
   justify-content: space-between;
   gap: 10px;
 
@@ -92,6 +92,8 @@ export const ClearButton = styled.button`
 `;
 
 export const EmptyState = styled.td`
+  padding: 80px;
+
   & p {
     display: flex;
     flex-direction: column;
@@ -99,26 +101,33 @@ export const EmptyState = styled.td`
     align-items: center;
     gap: 20px;
 
+    font-size: 1rem;
+    line-height: 1.5;
+
     text-align: center;
   }
 
   & p:first-of-type {
-    margin-top: 20px;
+    margin-top: 10px;
   }
 
   & span {
     display: flex;
     justify-content: center;
-    margin-top: 40px;
   }
 
-  & span:last-of-type {
-    margin-bottom: 40px;
+  & .clear-button {
+    margin-top: 1rem;
   }
 
-  @media (max-width: 1199px) {
+  @media (max-width: 1023px) {
+    padding: 40px 20px;
     border: 1px solid var(--light-gray);
     box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.05);
     background: var(--white);
+
+    & p {
+      font-size: 0.9rem;
+    }
   }
 `;

@@ -40,8 +40,13 @@ export default function Home() {
     }))
   );
 
-  const visibleTableColumnsKeys = useMemo(() => {
-    return tableColumns.filter((col) => col.isVisible).map(({ key }) => key);
+  const visibleTableColumnsData = useMemo(() => {
+    return tableColumns
+      .filter((col) => col.isVisible)
+      .map(({ key, name }) => ({
+        key,
+        name,
+      }));
   }, [tableColumns]);
 
   const handleColumnToggle = useCallback((columnKey: string) => {
@@ -105,7 +110,7 @@ export default function Home() {
           onRowClick={handleRowClick}
           onClearClick={() => handleInputChange("")}
           isLoading={!isFirstLoad && isPending}
-          columns={visibleTableColumnsKeys}
+          columns={visibleTableColumnsData}
         />
       </Styled.TableContainer>
       <footer className="mt-8 text-sm flex justify-between items-center lg:flex-row flex-col gap-4">
@@ -121,7 +126,7 @@ export default function Home() {
               totalItems={totalOfResults}
               itemsPerPage={ITEMS_PER_PAGE}
               onPageChange={setPage}
-            />{" "}
+            />
           </>
         )}
       </footer>

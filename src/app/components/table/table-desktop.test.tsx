@@ -1,4 +1,5 @@
 import { fireEvent, render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 
 import { mockedPlanetsApiResponse } from "@mocks/planets-data";
 import { mockedColumns } from "@mocks/table";
@@ -10,22 +11,27 @@ jest.mock("@/app/utils/format-planet-details", () => ({
 }));
 
 const planetsData = mockedPlanetsApiResponse.results;
+const mockOnRowClick = jest.fn();
+const mockOnClearClick = jest.fn();
+
+export const renderTableDesktop = (props = {}) => {
+  const defaultProps = {
+    data: planetsData,
+    columns: mockedColumns,
+    onRowClick: mockOnRowClick,
+    onClearClick: mockOnClearClick,
+  };
+
+  return render(<TableDesktop {...defaultProps} {...props} />);
+};
 
 describe("TableDesktop", () => {
-  const mockOnRowClick = jest.fn();
-
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
   it("renders the table with correct headers", () => {
-    render(
-      <TableDesktop
-        data={planetsData}
-        columns={mockedColumns}
-        onRowClick={mockOnRowClick}
-      />
-    );
+    renderTableDesktop();
 
     mockedColumns.forEach((column) => {
       expect(screen.getByText(column.name)).toBeInTheDocument();
@@ -33,13 +39,7 @@ describe("TableDesktop", () => {
   });
 
   it("renders correct number of rows with correct data", () => {
-    render(
-      <TableDesktop
-        data={planetsData}
-        columns={mockedColumns}
-        onRowClick={mockOnRowClick}
-      />
-    );
+    renderTableDesktop();
 
     const rows = screen.getAllByTestId("desktop-table-row");
     expect(rows).toHaveLength(planetsData.length);
@@ -54,13 +54,7 @@ describe("TableDesktop", () => {
   });
 
   it("calls onRowClick with correct data when row is clicked", () => {
-    render(
-      <TableDesktop
-        data={planetsData}
-        columns={mockedColumns}
-        onRowClick={mockOnRowClick}
-      />
-    );
+    renderTableDesktop();
 
     const firstRow = screen.getAllByTestId("desktop-table-row")[0];
     fireEvent.click(firstRow);
@@ -70,13 +64,7 @@ describe("TableDesktop", () => {
   });
 
   it("applies hover styles when hovering over rows", () => {
-    render(
-      <TableDesktop
-        data={planetsData}
-        columns={mockedColumns}
-        onRowClick={mockOnRowClick}
-      />
-    );
+    renderTableDesktop();
 
     const rows = screen.getAllByTestId("desktop-table-row");
     rows.forEach((row) => {
@@ -86,13 +74,9 @@ describe("TableDesktop", () => {
   });
 
   it("handles empty data array", () => {
-    render(
-      <TableDesktop
-        data={[]}
-        columns={mockedColumns}
-        onRowClick={mockOnRowClick}
-      />
-    );
+    renderTableDesktop({
+      data: [],
+    });
 
     mockedColumns.forEach((column) => {
       expect(screen.getByText(column.name)).toBeInTheDocument();
@@ -100,5 +84,33 @@ describe("TableDesktop", () => {
 
     const rows = screen.queryAllByTestId("desktop-table-row");
     expect(rows).toHaveLength(0);
+  });
+
+  describe("when there's not data", () => {
+    beforeEach(() => {
+      renderTableDesktop({
+        data: [],
+      });
+    });
+
+    it("should show empty state", () => {
+      expect(screen.getByText("No data available.")).toBeInTheDocument();
+    });
+
+    it("should display a clear search button", () => {
+      const clearButton = screen.getByRole("button", { name: /clear search/i });
+      expect(clearButton).toBeInTheDocument();
+    });
+
+    describe("and we click in the clear button", () => {
+      it("should trigger the onClearClick function", async () => {
+        const clearButton = screen.getByRole("button", {
+          name: /clear search/i,
+        });
+        await userEvent.click(clearButton);
+
+        expect(mockOnClearClick).toHaveBeenCalledTimes(1);
+      });
+    });
   });
 });
