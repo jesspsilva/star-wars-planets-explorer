@@ -1,6 +1,3 @@
-import { EPlanetClimates } from "./climates";
-import { EPlanetTerrains } from "./terrains";
-
 export interface IPlanetsApiResponse {
   count: number;
   next: string | null;
@@ -9,7 +6,7 @@ export interface IPlanetsApiResponse {
 }
 
 export interface IPlanets {
-  climate: EPlanetClimates[];
+  climate: string;
   created: string;
   diameter: string;
   edited: string;
@@ -21,6 +18,6 @@ export interface IPlanets {
   residents: string[];
   rotation_period: string;
   surface_water: string;
-  terrain: EPlanetTerrains[];
+  terrain: string;
   url: string;
 }

@@ -1,5 +1,4 @@
-import { MagnifyingGlassIcon, CrossCircledIcon } from "@radix-ui/react-icons";
-import { ChangeEvent } from "react";
+import { CrossCircledIcon, MagnifyingGlassIcon } from "@radix-ui/react-icons";
 
 import * as Styled from "./search.styles";
 
@@ -28,6 +27,7 @@ export default function Search({ value, placeholder, onChange }: SearchProps) {
         height={20}
         className="hidden group-hover:block cursor-pointer"
         onClick={() => handleInputChange("")}
+        data-testid="search-input-clear-button"
       />
       <MagnifyingGlassIcon
         width={20}

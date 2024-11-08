@@ -20,12 +20,12 @@ export default function Modal({ planet, onClose }: ModalProps) {
     }));
 
   return (
-    <Styled.Backdrop onClick={onClose}>
+    <Styled.Backdrop onClick={onClose} role="dialog">
       <Styled.ModalContainer onClick={(e) => e.stopPropagation()}>
         <Styled.Header>
           <Styled.Title>{planet.name}</Styled.Title>
           <Styled.CloseButton onClick={onClose}>
-            <Cross2Icon width={24} height={24} />
+            <Cross2Icon width={24} height={24} data-testid="modal-close-button"/>
           </Styled.CloseButton>
         </Styled.Header>
 
