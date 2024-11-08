@@ -3,7 +3,7 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import { mockedPlanetsApiResponse } from "@mocks/planets-data";
 import { mockedColumns } from "@mocks/table";
 
-import TableDesktop from "./table-desktop";
+import TableMobile from "./table-mobile";
 
 jest.mock("@/app/utils/format-planet-details", () => ({
   formatPlanetDetails: (value: string) => value,
@@ -11,38 +11,34 @@ jest.mock("@/app/utils/format-planet-details", () => ({
 
 const planetsData = mockedPlanetsApiResponse.results;
 
-describe("TableDesktop", () => {
+describe("TableMobile", () => {
   const mockOnRowClick = jest.fn();
 
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
-  it("renders the table with correct headers", () => {
+  it("renders all data rows correctly", () => {
     render(
-      <TableDesktop
+      <TableMobile
         data={planetsData}
         columns={mockedColumns}
         onRowClick={mockOnRowClick}
       />
     );
 
-    mockedColumns.forEach((column) => {
-      expect(screen.getByText(column.name)).toBeInTheDocument();
-    });
+    const rows = screen.getAllByTestId("mobile-table-row");
+    expect(rows).toHaveLength(planetsData.length);
   });
 
-  it("renders correct number of rows with correct data", () => {
+  it("renders all cells with correct data", () => {
     render(
-      <TableDesktop
+      <TableMobile
         data={planetsData}
         columns={mockedColumns}
         onRowClick={mockOnRowClick}
       />
     );
-
-    const rows = screen.getAllByTestId("desktop-table-row");
-    expect(rows).toHaveLength(planetsData.length);
 
     planetsData.forEach((item) => {
       expect(screen.getByText(item.name)).toBeInTheDocument();
@@ -53,52 +49,54 @@ describe("TableDesktop", () => {
     });
   });
 
-  it("calls onRowClick with correct data when row is clicked", () => {
+  it("applies correct data-label attributes to cells", () => {
     render(
-      <TableDesktop
+      <TableMobile
         data={planetsData}
         columns={mockedColumns}
         onRowClick={mockOnRowClick}
       />
     );
 
-    const firstRow = screen.getAllByTestId("desktop-table-row")[0];
+    const cells = screen.getAllByTestId("mobile-table-cell");
+    cells.forEach((cell, index) => {
+      const columnIndex = index % mockedColumns.length;
+      expect(cell).toHaveAttribute(
+        "data-label",
+        mockedColumns[columnIndex].name
+      );
+    });
+  });
+
+  it("calls onRowClick with correct planet data when row is clicked", () => {
+    render(
+      <TableMobile
+        data={planetsData}
+        columns={mockedColumns}
+        onRowClick={mockOnRowClick}
+      />
+    );
+
+    const firstRow = screen.getAllByTestId("mobile-table-row")[0];
     fireEvent.click(firstRow);
 
     expect(mockOnRowClick).toHaveBeenCalledTimes(1);
     expect(mockOnRowClick).toHaveBeenCalledWith(planetsData[0]);
   });
 
-  it("applies hover styles when hovering over rows", () => {
+  it("applies hover and cursor styles to rows", () => {
     render(
-      <TableDesktop
+      <TableMobile
         data={planetsData}
         columns={mockedColumns}
         onRowClick={mockOnRowClick}
       />
     );
 
-    const rows = screen.getAllByTestId("desktop-table-row");
+    const rows = screen.getAllByTestId("mobile-table-row");
     rows.forEach((row) => {
       expect(row).toHaveClass("hover:bg-blue-50");
       expect(row).toHaveClass("cursor-pointer");
     });
-  });
-
-  it("handles empty data array", () => {
-    render(
-      <TableDesktop
-        data={[]}
-        columns={mockedColumns}
-        onRowClick={mockOnRowClick}
-      />
-    );
-
-    mockedColumns.forEach((column) => {
-      expect(screen.getByText(column.name)).toBeInTheDocument();
-    });
-
-    const rows = screen.queryAllByTestId("desktop-table-row");
-    expect(rows).toHaveLength(0);
   });
 });

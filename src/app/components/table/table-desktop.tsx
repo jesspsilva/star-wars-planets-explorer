@@ -1,3 +1,5 @@
+import { memo } from "react";
+
 import {
   Table,
   TableBody,
@@ -13,7 +15,7 @@ import { TableContainer } from "./table.styles";
 
 import type { TableProps } from "./table";
 
-export default function TableDesktop({
+export function TableDesktop({
   data,
   columns,
   onRowClick,
@@ -41,7 +43,7 @@ export default function TableDesktop({
           </Table>
         </div>
         <TableContainer className="flex-1 overflow-auto 2xl:max-h-none">
-          <Table className="w-full table-fixed">
+          <Table className="w-full table-fixed" data-testid="data-table">
             <TableBody>
               {data.map((item) => (
                 <TableRow
@@ -53,9 +55,8 @@ export default function TableDesktop({
                   {columns.map((col, index) => (
                     <TableCell
                       key={col.key}
-                      data-label={col}
                       className={`${index < 5 ? "w-[12%]" : "w-1/5"}`}
-                      data-testid="table-desktop-cell"
+                      data-testid="desktop-table-cell"
                     >
                       {formatPlanetDetails(
                         item[col.key as keyof IPlanets] as string,
@@ -72,3 +73,5 @@ export default function TableDesktop({
     </div>
   );
 }
+
+export default memo(TableDesktop);
