@@ -14,7 +14,7 @@ const planetsData = mockedPlanetsApiResponse.results;
 const mockOnRowClick = jest.fn();
 const mockOnClearClick = jest.fn();
 
-export const renderTableDesktop = (props = {}) => {
+const renderTableDesktop = (props = {}) => {
   const defaultProps = {
     data: planetsData,
     columns: mockedColumns,

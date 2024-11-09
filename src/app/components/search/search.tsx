@@ -21,6 +21,7 @@ export default function Search({ value, placeholder, onChange }: SearchProps) {
         onChange={(e) => handleInputChange(e.target.value)}
         name="search"
         placeholder={placeholder}
+        data-testid="search-input"
       />
       <CrossCircledIcon
         width={20}

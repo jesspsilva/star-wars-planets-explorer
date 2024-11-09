@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Spinner component matches snapshot 1`] = `
+<div>
+  <div
+    class="sc-gtLWhw fTXrlL"
+    data-testid="loading-spinner"
+  >
+    <div
+      class="sc-blHHSb kvKaeK"
+    />
+  </div>
+</div>
+`;

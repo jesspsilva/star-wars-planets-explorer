@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Badge component matches snapshot 1`] = `
+<div>
+  <span
+    class="sc-blHHSb kYIjTj"
+    colors="[object Object]"
+    data-testid="badge"
+    label="Badge"
+  >
+    Badge
+  </span>
+</div>
+`;

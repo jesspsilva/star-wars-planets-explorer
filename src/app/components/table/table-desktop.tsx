@@ -48,7 +48,7 @@ export function TableDesktop({
           </Table>
         </div>
         {isLoading ? (
-          <SkeletonLoader numberOfItems={7} dataTestid="desktop"/>
+          <SkeletonLoader dataTestid="desktop"/>
         ) : (
           <TableContainer className="flex-1 overflow-auto 2xl:max-h-none">
             <Table className="w-full table-fixed" data-testid="data-table">

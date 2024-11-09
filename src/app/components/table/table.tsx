@@ -24,7 +24,7 @@ function Table({
 }: TableProps) {
   return (
     <>
-      <div className="hidden lg:block">
+      <div className="hidden lg:block" data-testid="table-desktop">
         <TableDesktop
           data={data}
           onRowClick={onRowClick}
@@ -34,7 +34,7 @@ function Table({
         />
       </div>
 
-      <div className="block lg:hidden">
+      <div className="block lg:hidden" data-testid="table-mobile">
         <TableMobile
           data={data}
           onRowClick={onRowClick}

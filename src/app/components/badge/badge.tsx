@@ -4,7 +4,7 @@ import type { IPlanateDetailsColors } from "@/app/types/colors";
 
 export interface BadgeProps {
   label: string;
-  colors: IPlanateDetailsColors;
+  colors?: IPlanateDetailsColors;
 }
 
 const defaultColor = {
@@ -14,7 +14,7 @@ const defaultColor = {
 
 export default function Badge({ label, colors = defaultColor }: BadgeProps) {
   return (
-    <Styled.BadgeWrapper label={label} colors={colors}>
+    <Styled.BadgeWrapper label={label} colors={colors} data-testid="badge">
       {label}
     </Styled.BadgeWrapper>
   );
