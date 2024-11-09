@@ -23,17 +23,19 @@ export default function Search({ value, placeholder, onChange }: SearchProps) {
         placeholder={placeholder}
         data-testid="search-input"
       />
-      <CrossCircledIcon
-        width={20}
-        height={20}
-        className="hidden group-hover:block cursor-pointer"
-        onClick={() => handleInputChange("")}
-        data-testid="search-input-clear-button"
-      />
+      {!!value && (
+        <CrossCircledIcon
+          width={20}
+          height={20}
+          className="hidden group-hover:block cursor-pointer"
+          onClick={() => handleInputChange("")}
+          data-testid="search-input-clear-button"
+        />
+      )}
       <MagnifyingGlassIcon
         width={20}
         height={20}
-        className="group-hover:hidden cursor-pointer"
+        className={`${value ? "group-hover:hidden" : "group-hover:block"}`}
         onClick={() => handleInputChange("")}
       />
     </Styled.Search>
