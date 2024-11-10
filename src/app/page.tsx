@@ -107,8 +107,8 @@ export default function Home() {
           columns={visibleTableColumnsData}
         />
       </Styled.TableContainer>
-      <Styled.Footer className="mt-8 text-sm flex justify-between items-center lg:flex-row flex-col gap-4">
-        {!!totalOfResults && (
+      {!!totalOfResults && (
+        <Styled.Footer className="mt-8 text-sm flex justify-between items-center lg:flex-row flex-col gap-4">
           <>
             <span>
               Showing {Math.max(1, (page - 1) * ITEMS_PER_PAGE + 1)}-
@@ -122,8 +122,8 @@ export default function Home() {
               onPageChange={handlePageChange}
             />
           </>
-        )}
-      </Styled.Footer>
+        </Styled.Footer>
+      )}
       {isDetailsModalVisible && selectedPlanet && (
         <Modal
           planet={selectedPlanet}
