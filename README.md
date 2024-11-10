@@ -1,36 +1,108 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🌌 Star Wars Planets Explorer
 
-## Getting Started
+A **Next.js** application that displays Star Wars planet data in a rich, interactive interface. With advanced features such as search, column toggling, pagination, and modal dialogs, this app offers a comprehensive view of planets from the Star Wars universe.
 
-First, run the development server:
+## ✨ Features
 
-```bash
+- 🌍 **Planet Search**: Easily search for specific planets by name.
+- 📋 **Table View**: Organized data display for a clear overview of planet details.
+- 👁 **Column Visibility Toggle**: Show or hide columns, while keeping essential columns visible.
+- 🗃 **Pagination**: Efficient navigation through pages of planet data.
+- 🔍 **Modal Dialog**: Click on a planet to view detailed information in a modal window.
+- 🌐 **Responsive Design**: Seamless experience across all devices and screen sizes.
+- 📶 **Offline Mode**: Access data even without an internet connection.
+- ⏳ **Loading & Error States**: Provides visual feedback during data loading and in case of errors.
+- 🚀 **TypeScript Support**: Enhanced type safety for more reliable development.
+
+## 🛠️ Technologies Used
+
+This project is built with:
+
+- **Framework**: [Next.js](https://nextjs.org)
+- **Data Fetching**: [TanStack Query](https://tanstack.com/query)
+- **Styling**: [Styled Components](https://styled-components.com) & [Tailwind CSS](https://tailwindcss.com)
+- **UI Components**: [Shadcn UI](https://ui.shadcn.com)
+- **Icons**: [Radix Icons](https://icons.radix-ui.com)
+- **Testing**: [Jest](https://jestjs.io) & [React Testing Library](https://testing-library.com)
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+Ensure you have the following installed on your system:
+
+- **Node.js** (version 20 or later)
+- **npm** or **yarn**
+
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/jesspsilva/star-wars-planets-explorer.git
+   ```
+
+2. Navigate to project directory:
+   ```bash
+   cd star-wars-planets-explorer
+   ```
+
+3. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+   or
+
+   ```
+   yarn install
+   ```
+
+### Running the App
+
+To run the app in development mode:
+
+```
 npm run dev
-# or
+```
+
+or
+
+```
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🧪 Testing
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+This project includes integration and unit tests using Jest and React Testing Library. To run tests:
 
-## Learn More
+**Run all tests**:
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm run test
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📂 Project Structure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+The project follows a modular and organized structure:
 
-## Deploy on Vercel
+```plaintext
+├── src/                    # Source code
+│   ├── app/                # Main app logic
+│   │   ├── api/            # API functions and data fetching
+│   │   ├── fonts/          # Font loading and styling
+│   │   ├── lib/            # Utility libraries
+│   │   ├── provider/       # Context providers and global state
+│   │   ├── types/          # Type definitions
+│   │   ├── utils/          # Helper functions and utilities
+│   │   ├── global.css      # Global styles for the entire app
+│   │   ├── layout.tsx      # Layout component for the app
+│   │   ├── page.tsx        # Main page displaying planet data
+│   │   ├── components/     # Reusable UI components
+│   │   ├── hooks/          # Custom hooks
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Contributing
+
+Contributions to this project are welcome! If you have any ideas, bug fixes, or enhancements, please feel free to open an issue or submit a pull request. Make sure to follow the existing code style and provide clear documentation for your changes. Just take into account that this is an experimental project and a work in progress.
