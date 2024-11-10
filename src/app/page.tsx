@@ -6,6 +6,7 @@ import { useDebounce } from "use-debounce";
 import ColumnToggle, {
   type ColumnToggleConfig,
 } from "./components/column-toggle/column-toggle";
+import Error from "./components/error/error";
 import Modal from "./components/modal/modal";
 import Pagination from "./components/pagination/pagination";
 import Search from "./components/search/search";
@@ -15,12 +16,6 @@ import usePlanets from "./hooks/use-planets";
 import * as Styled from "./page.styles";
 import { IPlanets, IPlanetsApiResponse } from "./types/planets";
 import { planetDetailsConfig } from "./utils/planet-details-config";
-
-const Loading = () => <Spinner />;
-
-const ErrorMessage = ({ message }: { message: string }) => (
-  <div role="alert">An error has occurred: {message}</div>
-);
 
 const ITEMS_PER_PAGE = 10;
 
@@ -77,8 +72,8 @@ export default function Home() {
     setPage(1);
   };
 
-  if (isPending && isFirstLoad) return <Loading />;
-  if (error) return <ErrorMessage message={error.message} />;
+  if (error) return <Error />;
+  if (isPending && isFirstLoad) return <Spinner />;
 
   const handleRowClick = (planet: IPlanets) => {
     setSelectedPlanet(planet);
