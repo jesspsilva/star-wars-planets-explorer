@@ -24,8 +24,11 @@ export default function Modal({ planet, onClose }: ModalProps) {
       <Styled.ModalContainer onClick={(e) => e.stopPropagation()}>
         <Styled.Header>
           <Styled.Title>{planet.name}</Styled.Title>
-          <Styled.CloseButton onClick={onClose}>
-            <Cross2Icon width={24} height={24} data-testid="modal-close-button"/>
+          <Styled.CloseButton
+            onClick={onClose}
+            data-testid="modal-close-button"
+          >
+            <Cross2Icon width={24} height={24} />
           </Styled.CloseButton>
         </Styled.Header>
 
@@ -35,6 +38,7 @@ export default function Modal({ planet, onClose }: ModalProps) {
               key={config.label}
               data-label={config.label}
               className="flex items-center gap-1"
+              data-testid={`field-${config.key}`}
             >
               <label className="font-bold">{config.label}: </label>
               {formatPlanetDetails(
