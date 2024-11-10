@@ -7,8 +7,8 @@ import {
 } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-import { mockedUsePlanets } from "../__mocks__/hooks";
-import { mockedPlanetsApiResponse } from "../__mocks__/planets-data";
+import { mockedUsePlanets } from "./__mocks__/hooks";
+import { mockedPlanetsApiResponse } from "./__mocks__/planets-data";
 
 import Home from "./page";
 

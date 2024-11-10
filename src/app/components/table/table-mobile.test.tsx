@@ -1,8 +1,8 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-import { mockedPlanetsApiResponse } from "@mocks/planets-data";
-import { mockedColumns } from "@mocks/table";
+import { mockedPlanetsApiResponse } from "@/app/__mocks__/planets-data";
+import { mockedColumns } from "@/app/__mocks__/table";
 
 import TableMobile from "./table-mobile";
 
