@@ -48,7 +48,7 @@ export function TableDesktop({
           </Table>
         </div>
         {isLoading ? (
-          <SkeletonLoader dataTestid="desktop"/>
+          <SkeletonLoader dataTestid="desktop" />
         ) : (
           <TableContainer className="flex-1 overflow-auto 2xl:max-h-none">
             <Table className="w-full table-fixed" data-testid="data-table">
@@ -69,7 +69,8 @@ export function TableDesktop({
                         >
                           {formatPlanetDetails(
                             item[col.key as keyof IPlanets] as string,
-                            col.key
+                            col.key,
+                            true
                           )}
                         </TableCell>
                       ))}

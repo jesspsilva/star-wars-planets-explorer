@@ -9,7 +9,13 @@ import IconWithTooltip from "../components/icon-with-tooltip/icon-with-tooltip";
 import { formatNumericValue } from "./format-numeric-values";
 import { planetDetailsConfig } from "./planet-details-config";
 
-export const formatPlanetDetails = (value: string, key: string) => {
+export const formatPlanetDetails = (
+  value: string | null | undefined,
+  key: string,
+  isDesktop = false
+) => {
+  if (value === null || value === undefined) return "-";
+
   if (key === "name") {
     return value;
   }
@@ -36,7 +42,9 @@ export const formatPlanetDetails = (value: string, key: string) => {
     );
   }
 
-  if (value === "unknown") return <IconWithTooltip tooltipText="Unknown" />;
+  if (value === "unknown") {
+    return isDesktop ? <IconWithTooltip tooltipText="Unknown" /> : "Unknown";
+  }
 
   const header = planetDetailsConfig.find((config) => config.key === key);
   const unit = header ? header.unit : "";
