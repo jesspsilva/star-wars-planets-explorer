@@ -6,7 +6,7 @@ A **Next.js** application that displays Star Wars planet data in a rich, interac
 
 - 🌍 **Planet Search**: Easily search for specific planets by name.
 - 📋 **Table View**: Organized data display for a clear overview of planet details.
-- 👁 **Column Visibility Toggle**: Show or hide columns, while keeping essential columns visible.
+- 👁 **Column Visibility Toggle**: Show or hide columns.
 - 🗃 **Pagination**: Efficient navigation through pages of planet data.
 - 🔍 **Modal Dialog**: Click on a planet to view detailed information in a modal window.
 - 🌐 **Responsive Design**: Seamless experience across all devices and screen sizes.
@@ -53,7 +53,7 @@ Ensure you have the following installed on your system:
 
    or
 
-   ```
+   ```bash
    yarn install
    ```
 
@@ -61,13 +61,13 @@ Ensure you have the following installed on your system:
 
 To run the app in development mode:
 
-```
+```bash
 npm run dev
 ```
 
 or
 
-```
+```bash
 yarn dev
 ```
 
@@ -83,6 +83,12 @@ This project includes integration and unit tests using Jest and React Testing Li
 npm run test
 ```
 
+or
+
+```bash
+yarn test
+```
+
 ## 📂 Project Structure
 
 The project follows a modular and organized structure:
@@ -91,7 +97,9 @@ The project follows a modular and organized structure:
 ├── src/                    # Source code
 │   ├── app/                # Main app logic
 │   │   ├── api/            # API functions and data fetching
+│   │   ├── components/     # Reusable UI components
 │   │   ├── fonts/          # Font loading and styling
+│   │   ├── hooks/          # Custom hooks
 │   │   ├── lib/            # Utility libraries
 │   │   ├── provider/       # Context providers and global state
 │   │   ├── types/          # Type definitions
@@ -99,9 +107,7 @@ The project follows a modular and organized structure:
 │   │   ├── global.css      # Global styles for the entire app
 │   │   ├── layout.tsx      # Layout component for the app
 │   │   ├── page.tsx        # Main page displaying planet data
-│   │   ├── components/     # Reusable UI components
-│   │   ├── hooks/          # Custom hooks
-
+```
 
 ## Contributing
 
