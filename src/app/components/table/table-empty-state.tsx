@@ -1,8 +1,6 @@
 import { CrossCircledIcon, FileTextIcon } from "@radix-ui/react-icons";
 import { MouseEvent } from "react";
 
-import { planetDetailsConfig } from "@/app/utils/planet-details-config";
-
 import { TableProps } from "./table";
 import { ClearButton, EmptyState } from "./table.styles";
 
@@ -15,7 +13,7 @@ export default function TableEmptyState({
   };
   
   return (
-    <EmptyState colSpan={planetDetailsConfig.length}>
+    <EmptyState>
       <span className="icon">
         <FileTextIcon width={80} height={80} data-testid="table-empty-state-icon"/>
       </span>

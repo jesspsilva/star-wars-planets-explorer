@@ -91,7 +91,7 @@ export const ClearButton = styled.button`
   }
 `;
 
-export const EmptyState = styled.td`
+export const EmptyState = styled.div`
   padding: 80px;
 
   & p {

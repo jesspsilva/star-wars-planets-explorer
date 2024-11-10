@@ -119,7 +119,7 @@ describe("TableMobile", () => {
     });
 
     it("should show loading skeleton", () => {
-      const skeletonDiv = screen.getByTestId("skeleton-loader");
+      const skeletonDiv = screen.getByTestId("skeleton-loader-mobile");
       expect(skeletonDiv.children).toHaveLength(8);
     });
   });

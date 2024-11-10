@@ -1,10 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`TableEmptyState matches snapshot 1`] = `
+exports[`TableEmptyState component matches snapshot 1`] = `
 <div>
-  <td
+  <div
     class="sc-ivxoEo gEYzIn"
-    colspan="7"
   >
     <span
       class="icon"
@@ -55,6 +54,6 @@ exports[`TableEmptyState matches snapshot 1`] = `
         </svg>
       </button>
     </span>
-  </td>
+  </div>
 </div>
 `;

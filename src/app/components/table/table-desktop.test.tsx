@@ -123,7 +123,7 @@ describe("TableDesktop", () => {
     });
 
     it("should show loading skeleton", () => {
-      const skeletonDiv = screen.getByTestId("skeleton-loader");
+      const skeletonDiv = screen.getByTestId("skeleton-loader-desktop");
       expect(skeletonDiv.children).toHaveLength(7);
     });
   });

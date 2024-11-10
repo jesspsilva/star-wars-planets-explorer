@@ -10,6 +10,7 @@ import {
 } from "@/app/components/ui/table";
 import { IPlanets } from "@/app/types/planets";
 import { formatPlanetDetails } from "@/app/utils/format-planet-details";
+import { planetDetailsConfig } from "@/app/utils/planet-details-config";
 
 import SkeletonLoader from "../skeleton-loader/skeleton-loader";
 
@@ -78,7 +79,9 @@ export function TableDesktop({
                   ))}
                 {!data.length && (
                   <tr>
-                    <TableEmptyState onClearClick={onClearClick} />
+                    <td colSpan={planetDetailsConfig.length}>
+                      <TableEmptyState onClearClick={onClearClick} />
+                    </td>
                   </tr>
                 )}
               </TableBody>

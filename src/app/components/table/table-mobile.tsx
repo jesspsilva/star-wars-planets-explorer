@@ -2,6 +2,7 @@ import { memo } from "react";
 
 import { IPlanets } from "@/app/types/planets";
 import { formatPlanetDetails } from "@/app/utils/format-planet-details";
+import { planetDetailsConfig } from "@/app/utils/planet-details-config";
 
 import SkeletonLoader from "../skeleton-loader/skeleton-loader";
 
@@ -20,7 +21,7 @@ function TableMobile({
   return (
     <>
       {isLoading ? (
-        <SkeletonLoader numberOfItems={8} dataTestid="mobile"/>
+        <SkeletonLoader numberOfItems={8} dataTestid="mobile" />
       ) : (
         <Styled.TableWrapper>
           <tbody>
@@ -49,7 +50,9 @@ function TableMobile({
               ))
             ) : (
               <tr>
-                <TableEmptyState onClearClick={onClearClick} />
+                <td colSpan={planetDetailsConfig.length}>
+                  <TableEmptyState onClearClick={onClearClick} />
+                </td>
               </tr>
             )}
           </tbody>

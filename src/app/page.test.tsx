@@ -9,24 +9,33 @@ import userEvent from "@testing-library/user-event";
 
 import { mockedUsePlanets } from "./__mocks__/hooks";
 import { mockedPlanetsApiResponse } from "./__mocks__/planets-data";
-
 import Home from "./page";
 
-jest.mock("@/app/utils/debounce", () => ({
-  debounce: (fn: Function) => fn,
+jest.mock("@/app/components/error/error", () => {
+  return function Error() {
+    return <div>Error message</div>;
+  };
+});
+
+jest.mock("use-debounce", () => ({
+  useDebounce: (value: string) => [value, jest.fn()],
 }));
 
 jest.mock("./hooks/use-planets");
 
 describe("Home Component", () => {
   beforeEach(() => {
-    jest.clearAllMocks();
+    window.scrollTo = jest.fn();
 
     mockedUsePlanets.mockReturnValue({
       data: mockedPlanetsApiResponse,
       isPending: false,
       error: null,
     });
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
   });
 
   describe("Initial Render", () => {
@@ -41,16 +50,15 @@ describe("Home Component", () => {
       expect(screen.getByTestId("loading-spinner")).toBeInTheDocument();
     });
 
-    it("should show error message when API fails", () => {
-      const errorMessage = "An error has occurred:";
+    it("should show error component when API fails", () => {
       mockedUsePlanets.mockReturnValue({
         data: null,
         isPending: false,
-        error: new Error(errorMessage),
+        error: new Error("error"),
       });
 
       render(<Home />);
-      expect(screen.getByRole("alert")).toHaveTextContent(errorMessage);
+      expect(screen.getByText("Error message")).toBeInTheDocument();
     });
 
     it("should render planets table with correct data", () => {
