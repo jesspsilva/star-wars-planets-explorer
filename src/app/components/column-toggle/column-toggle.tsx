@@ -51,7 +51,7 @@ export default function ColumnToggle({
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" className="rounded-3xl p-5">
+        <Button variant="outline" className="rounded-3xl p-5 sm:w-auto w-full">
           <ViewVerticalIcon />
           Columns
         </Button>

@@ -14,7 +14,7 @@ export default function Search({ value, placeholder, onChange }: SearchProps) {
   };
 
   return (
-    <Styled.Search className="group">
+    <Styled.Search className="group shadow-sm sm:w-auto w-full">
       <input
         type="text"
         value={value}

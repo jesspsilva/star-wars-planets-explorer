@@ -6,7 +6,7 @@ export const Search = styled.div`
   justify-content: space-between;
 
 
-  min-width: 280px;
+  min-width: 240px;
   padding: 10px 20px;
   background-color: var(--white);
   border: 1px solid var(--light-gray);

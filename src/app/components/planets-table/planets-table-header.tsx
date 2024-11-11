@@ -17,13 +17,19 @@ export default function PlanetsTableHeader({
   onColumnToggle,
 }: PlanetsTableHeader) {
   return (
-    <header className="mb-10 flex justify-end gap-4">
-      <Search
-        value={searchValue}
-        onChange={onSearchChange}
-        placeholder="Search for a planet"
-      />
-      <ColumnToggle columns={columns} onColumnToggle={onColumnToggle} />
+    <header className="mb-8 flex lg:justify-between lg:flex-row flex-col gap-4">
+      <div className="mb-2 lg:mb-0">
+        <h2 className="font-bold">🌌 Star Wars Planets Explorer</h2>
+        <p>Discover and explore planets from across the Star Wars galaxy.</p>
+      </div>
+      <div className="flex flex-row gap-4 items-center sm:flex-row flex-col">
+        <Search
+          value={searchValue}
+          onChange={onSearchChange}
+          placeholder="Search for a planet"
+        />
+        <ColumnToggle columns={columns} onColumnToggle={onColumnToggle} />
+      </div>
     </header>
   );
 }
