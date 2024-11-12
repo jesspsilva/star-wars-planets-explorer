@@ -55,7 +55,7 @@ describe("formatNumericValue", () => {
     expect(formatNumericValue("12345", "population")).toBe("12.3K");
   });
 
-  it("returns '-' for non-numeric values", () => {
-    expect(formatNumericValue("abc")).toBe("-");
+  it("returns value for non-numeric values", () => {
+    expect(formatNumericValue("abc")).toBe("abc");
   });
 });

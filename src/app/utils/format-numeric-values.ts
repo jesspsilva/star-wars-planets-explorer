@@ -3,7 +3,7 @@ export const formatNumericValue = (
   unit: string = ""
 ) => {
   const numValue = Number(value);
-  if (isNaN(numValue)) return "-";
+  if (isNaN(numValue)) return value;
 
   if (unit === "population") {
     const formatter = new Intl.NumberFormat("en-US", {
